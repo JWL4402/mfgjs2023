@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade Tab
       objectReference: {fileID: 0}
+    - target: {fileID: 3081568371720691925, guid: e5adfab8e1f35f7479332e63db51af84, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3603953511659361735, guid: e5adfab8e1f35f7479332e63db51af84, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0

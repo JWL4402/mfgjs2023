@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TabSlideAnimationScript : MonoBehaviour
 {
     public GameObject srcObject;
     public GameObject destObject;
+    public Button tabButton;
 
     public float duration;
 
@@ -55,11 +57,18 @@ public class TabSlideAnimationScript : MonoBehaviour
         isMoving = true;
 
         float counter = 0;
+        //Vector3 tabOffset = new Vector3(tabButton.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2 +
+        //    srcObject.GetComponent<RectTransform>().sizeDelta.x / 2, 0);
+
+        Vector3 btnSrc = tabButton.transform.position;
+        Vector3 btnDest = new Vector3(tabButton.transform.position.x - src.x + dest.x,
+            tabButton.transform.position.y, 0);
 
         while (counter < duration)
         {
             counter += Time.deltaTime;
             srcObject.transform.position = CustomInterpolate(src, dest, counter, duration);
+            tabButton.transform.position = CustomInterpolate(btnSrc, btnDest, counter, duration);
             yield return null;
         }
 
