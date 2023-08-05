@@ -19,7 +19,6 @@ public class FieldScript : MonoBehaviour
         for (int i = 0; i < plotCount; i++)
         {
             GameObject plot = GameObject.Instantiate(plotTemplate, gameObject.transform);
-            Debug.Log(plot);
             plots.Add(plot);
         }
 
