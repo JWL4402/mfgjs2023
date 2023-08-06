@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,8 @@ public class DraggableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 {
     public GameObject draggedObject;
     public GameObject clone;
+
+    private const int UILayer = 5;
 
     void Start()
     {
@@ -41,6 +44,20 @@ public class DraggableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
     }
 
+    private void CheckForPlots()
+    {
+        // Courtesy of : https://stackoverflow.com/a/74744617/12462601
+        var eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        if (results.Where(r => r.gameObject.layer == UILayer).Count() > 0)
+        {
+            Debug.Log(results[0].gameObject.name);
+        }
+    }
+
     private void GenerateClone()
     {
         clone = Object.Instantiate(draggedObject, gameObject.transform.parent);
@@ -54,5 +71,6 @@ public class DraggableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public void OnPointerUp(PointerEventData eventData)
     {
         Destroy(clone);
+        CheckForPlots();
     }
 }
