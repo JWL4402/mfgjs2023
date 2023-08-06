@@ -1531,8 +1531,9 @@ GameObject:
   - component: {fileID: 1429301930}
   - component: {fileID: 1429301932}
   - component: {fileID: 1429301931}
+  - component: {fileID: 1429301933}
   m_Layer: 5
-  m_Name: Water Can
+  m_Name: Watering Can
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1571,7 +1572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7075472, g: 0.39716092, b: 0.39716092, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1596,6 +1597,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429301929}
   m_CullTransparentMesh: 1
+--- !u!114 &1429301933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429301929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ffe0badbaea734ea84616e2c7147d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggedObject: {fileID: 1429301929}
+  clone: {fileID: 0}
+  tool: {fileID: 11400000, guid: 5b044a2211da1e74c80ffff3ef9a9dbc, type: 2}
 --- !u!1 &1570730914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,9 +1841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ffe0badbaea734ea84616e2c7147d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: 1
-  copiedObject: {fileID: 1634914113}
+  draggedObject: {fileID: 1634914113}
   clone: {fileID: 0}
+  tool: {fileID: 11400000, guid: 3450f39f121fc754db422c79d2c865ea, type: 2}
 --- !u!61 &1634914118
 BoxCollider2D:
   m_ObjectHideFlags: 0
