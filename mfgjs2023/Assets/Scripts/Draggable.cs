@@ -9,10 +9,12 @@ using UnityEngine.EventSystems;
 /// A script that allows the player to click on a GameObject to move it around with their mouse, then
 /// click again to let go of it. All Game Objects involved must have a BoxCollider (but a RigidBody is not required)
 /// </summary>
-public class DraggableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public GameObject draggedObject;
     public GameObject clone;
+
+    public UseableObject tool;
 
     private const int UILayer = 5;
 
@@ -53,8 +55,9 @@ public class DraggableObject : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         EventSystem.current.RaycastAll(eventData, results);
 
         if (results.Where(r => r.gameObject.layer == UILayer).Count() > 0)
-        {
-            Debug.Log(results[0].gameObject.name);
+        {;
+            PlotScript plot = results[0].gameObject.GetComponent<PlotScript>();
+            tool.OnUse(plot);
         }
     }
 
