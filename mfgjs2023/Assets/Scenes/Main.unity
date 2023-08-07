@@ -2140,6 +2140,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 6896752104624582123, guid: 73aba29a9d53de441a3788c8a32a6960, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6896752104624582123, guid: 73aba29a9d53de441a3788c8a32a6960, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173389551298399949, guid: 73aba29a9d53de441a3788c8a32a6960, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 8676191834162154800, guid: 73aba29a9d53de441a3788c8a32a6960, type: 3}
       propertyPath: m_Name
       value: Shop Tabs
