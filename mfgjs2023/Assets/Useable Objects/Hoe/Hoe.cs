@@ -5,10 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Hoe", menuName = "Useable Objects/Hoe")]
 public class Hoe : UseableObject
 {
-
-
     public override void OnUse(PlotScript plot)
     {
-        plot.plowed = true;
+        plot.PlowPlot();
     }
 }

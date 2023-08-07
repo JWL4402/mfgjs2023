@@ -20,9 +20,9 @@ public class PlotScript : MonoBehaviour
         set { SetDebrisLevel(value); }
     }
 
-    public bool plowed;
-    public float growth;
+    [SerializeField] private bool plowed;
     [SerializeField] private float timeTillWater;
+    public float growth;
     public Crop plantedCrop;
 
     private void SetDebrisLevel(DebrisState level)
@@ -56,9 +56,28 @@ public class PlotScript : MonoBehaviour
         }
     }
 
+    public void PlowPlot()
+    {
+        if (debris != DebrisState.NONE) { return; }
+
+        plowed = true;
+    }
+
+    public void PlantPlot(Crop crop)
+    {
+        if (debris != DebrisState.NONE) { return; }
+        if (!plowed) { return; }
+        
+        plantedCrop = crop;
+    }
+
     private bool waterInProgress = false;
     public void WaterPlot(float waterDuration)
     {
+        if (debris != DebrisState.NONE) { return; }
+        if (plantedCrop == null) { return; }
+
+
         timeTillWater = waterDuration;
 
         StartCoroutine(StartGrowthCycle());
