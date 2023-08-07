@@ -28,14 +28,14 @@ public class FieldScript : MonoBehaviour
         for (int i = 0; i < arablePlots; i++)
         {
             int plotIndex = Random.Range(0, plotsCopy.Count);
-            plotsCopy[plotIndex].GetComponent<PlotScript>().debris = PlotScript.DebrisState.NONE;
+            plotsCopy[plotIndex].GetComponent<PlotScript>().Debris = PlotScript.DebrisState.NONE;
             plotsCopy.RemoveAt(plotIndex);
         }
 
         // TODO : Better implementation (percentages?) for the rest of them
         foreach (GameObject plot in plotsCopy)
         {
-            plot.GetComponent<PlotScript>().debris = PlotScript.DebrisState.MEDIUM;
+            plot.GetComponent<PlotScript>().Debris = PlotScript.DebrisState.MEDIUM;
         }
     }
 }
