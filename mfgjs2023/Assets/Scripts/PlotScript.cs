@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlotScript : MonoBehaviour, IPointerDownHandler
+public class PlotScript : MonoBehaviour
 {
     public enum DebrisState { NONE, LIGHT, MEDIUM, HEAVY  };
 
@@ -31,10 +31,5 @@ public class PlotScript : MonoBehaviour, IPointerDownHandler
     private void Update()
     {
 
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        
     }
 }
