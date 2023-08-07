@@ -37,11 +37,6 @@ public class ShopManagerScript : MonoBehaviour
     {
         yield return StartCoroutine(CloseTabs());
         yield return StartCoroutine(SlideTab(activeTab, TabState.OPEN));
-        //foreach (GameObject tab in tabs)
-        //{
-            
-        //    //yield return StartCoroutine(SlideTab(tab, tab == activeTab ? TabState.OPEN : TabState.CLOSED));
-        //}
     }
 
     private IEnumerator CloseTabs()
@@ -51,21 +46,6 @@ public class ShopManagerScript : MonoBehaviour
             yield return StartCoroutine(SlideTab(tab, TabState.CLOSED));
         }
     }
-
-    //private void SetTab(GameObject tab, TabState state)
-    //{
-    //    StartCoroutine(SlideTab(tab, state));
-    //}
-
-    //private void OpenTab(GameObject tab)
-    //{
-    //    StartCoroutine(SlideTab(tab.transform.position, gameObject.transform.position, slideDuration));
-    //}
-
-    //private void CloseTab(GameObject tab)
-    //{
-    //    StartCoroutine(SlideTab(gameObject.transform.position, tab.transform.position, slideDuration));
-    //}
 
     private bool inMotion;
     IEnumerator SlideTab(GameObject tab, TabState state)
