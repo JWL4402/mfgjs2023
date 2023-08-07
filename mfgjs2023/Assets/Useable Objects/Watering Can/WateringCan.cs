@@ -9,7 +9,6 @@ public class WateringCan : UseableObject
     
     public override void OnUse(PlotScript plot)
     {
-        float time = 15f; // TODO : will be decided by which crop is planted
-        plot.timeTillWater = time * timeMultiplier;
+        plot.WaterPlot(plot.plantedCrop.waterInterval * timeMultiplier);
     }
 }

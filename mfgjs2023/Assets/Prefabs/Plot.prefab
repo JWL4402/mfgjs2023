@@ -99,7 +99,9 @@ MonoBehaviour:
   plowed: 0
   growth: 0
   timeTillWater: 0
-  plantedCrop: {fileID: 0}
+  plantedCrop: {fileID: 11400000, guid: b9ceff342b86d354a84c2c0de954ad40, type: 2}
+  waterMaxSat: 0.5
+  waterMaxOversat: 0.8
 --- !u!61 &750544067581762181
 BoxCollider2D:
   m_ObjectHideFlags: 0

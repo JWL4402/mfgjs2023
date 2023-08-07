@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlotScript : MonoBehaviour
@@ -24,7 +22,7 @@ public class PlotScript : MonoBehaviour
 
     public bool plowed;
     public float growth;
-    public float timeTillWater;
+    [SerializeField] private float timeTillWater;
     public Crop plantedCrop;
 
     private void SetDebrisLevel(DebrisState level)
@@ -56,6 +54,48 @@ public class PlotScript : MonoBehaviour
         {
             debrisMap.Add(debrisStateList[i], debrisSpriteList[i]);
         }
+    }
+
+    private bool waterInProgress = false;
+    public void WaterPlot(float waterDuration)
+    {
+        timeTillWater = waterDuration;
+
+        StartCoroutine(StartGrowthCycle());
+    }
+
+    private const float waterHVal = 33f;
+    [SerializeField] [Range(0f, 0.7f)]
+    private float waterMaxSat;
+    [SerializeField] [Range(0, 1f)]
+    private float waterMaxOversat;
+
+    IEnumerator StartGrowthCycle()
+    {
+        if (waterInProgress)
+        {
+            yield break;
+        }
+        
+        waterInProgress = true;
+        Image plotImage = gameObject.GetComponent<Image>();
+
+        while (timeTillWater > 0)
+        {
+            timeTillWater -= Time.deltaTime;
+            growth += plantedCrop.growthRate * Time.deltaTime;
+
+            Color plotColor = Color.HSVToRGB(
+                (1f / 360f) * waterHVal,
+                Mathf.Clamp(waterMaxSat * (timeTillWater / plantedCrop.waterInterval), 0f, waterMaxOversat),
+                1f);
+            plotImage.color = plotColor;
+
+            yield return null;
+        }
+
+        waterInProgress = false;
+        timeTillWater = 0;
     }
 
     private void Start()
