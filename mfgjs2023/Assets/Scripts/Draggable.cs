@@ -18,7 +18,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private const int UILayer = 5;
 
-    void Start()
+    private void Start()
     {
         AddPhysicsRaycaster();
     }
