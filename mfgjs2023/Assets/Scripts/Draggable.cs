@@ -23,7 +23,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         AddPhysicsRaycaster();
     }
 
-    void Update()
+    private void Update()
     {
         if (clone == null) { return; }
 
