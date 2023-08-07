@@ -8,8 +8,8 @@ public class PlotScript : MonoBehaviour
 {
     public enum DebrisState { NONE, LIGHT, MEDIUM, HEAVY  };
 
-    [SerializeField]
-    private List<Sprite> debrisSpriteList;
+    [SerializeField] private List<Sprite> debrisSpriteList;
+    [SerializeField] private Sprite plowedPlotSprite;
     private Dictionary<DebrisState, Sprite> debrisMap;
 
     [SerializeField]
@@ -61,6 +61,7 @@ public class PlotScript : MonoBehaviour
         if (debris != DebrisState.NONE) { return; }
 
         plowed = true;
+        gameObject.GetComponent<Image>().sprite = plowedPlotSprite;
     }
 
     public void PlantPlot(Crop crop)
@@ -105,7 +106,7 @@ public class PlotScript : MonoBehaviour
             growth += plantedCrop.growthRate * Time.deltaTime;
 
             Color plotColor = Color.HSVToRGB(
-                (1f / 360f) * waterHVal,
+                waterHVal / 360f,
                 Mathf.Clamp(waterMaxSat * (timeTillWater / plantedCrop.waterInterval), 0f, waterMaxOversat),
                 1f);
             plotImage.color = plotColor;
