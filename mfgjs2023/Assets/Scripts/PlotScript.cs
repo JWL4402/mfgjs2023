@@ -90,7 +90,7 @@ public class PlotScript : MonoBehaviour
     [SerializeField] [Range(0, 1f)]
     private float waterMaxOversat;
 
-    IEnumerator StartGrowthCycle()
+    private IEnumerator StartGrowthCycle()
     {
         if (waterInProgress)
         {
@@ -116,15 +116,5 @@ public class PlotScript : MonoBehaviour
 
         waterInProgress = false;
         timeTillWater = 0;
-    }
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-
     }
 }
