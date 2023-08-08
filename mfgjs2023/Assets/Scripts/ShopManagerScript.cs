@@ -69,8 +69,6 @@ public class ShopManagerScript : MonoBehaviour
 
         Vector3 tabSrc = (state == TabState.OPEN) ? tabScript.initPos : gameObject.transform.position;
         Vector3 tabDest = (state == TabState.CLOSED) ? tabScript.initPos : gameObject.transform.position;
-        Debug.Log(tabSrc);
-        Debug.Log(tabDest);
 
         Vector3 btnSrc = tabButton.transform.position;
         Vector3 btnDest = new Vector3(tabButton.transform.position.x - tabSrc.x + tabDest.x,

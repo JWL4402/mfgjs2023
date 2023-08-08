@@ -24,6 +24,7 @@ public class PlotScript : MonoBehaviour
     [SerializeField] private float timeTillWater;
     public float growth;
     public Crop plantedCrop;
+    [SerializeField] private Image cropImage;
 
     private void SetDebrisLevel(DebrisState level)
     {
@@ -70,6 +71,8 @@ public class PlotScript : MonoBehaviour
         if (!plowed) { return; }
         
         plantedCrop = crop;
+        cropImage.gameObject.SetActive(true);
+        cropImage.sprite = crop.sprites[0];
     }
 
     private bool waterInProgress = false;
