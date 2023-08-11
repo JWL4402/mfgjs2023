@@ -10,7 +10,10 @@ public class FieldScript : MonoBehaviour
     private int plotCount;
     private List<GameObject> plots;
 
-    [SerializeField] private int arablePlots;
+    //[SerializeField] private int arablePlots;
+    [SerializeField] private int lightPlots;
+    [SerializeField] private int mediumPlots;
+    [SerializeField] private int heavyPlots;
 
     private void Start()
     {
@@ -23,19 +26,37 @@ public class FieldScript : MonoBehaviour
             plots.Add(plot);
         }
 
+        RandomizePlotDebris();
+    }
+
+    private void RandomizePlotDebris()
+    {
         List<GameObject> plotsCopy = new List<GameObject>(plots);
-        
-        for (int i = 0; i < arablePlots; i++)
+
+        for (int i = 0; i < heavyPlots; i++)
         {
             int plotIndex = Random.Range(0, plotsCopy.Count);
-            plotsCopy[plotIndex].GetComponent<PlotScript>().debris = PlotScript.DebrisState.NONE;
+            plotsCopy[plotIndex].GetComponent<PlotScript>().Debris = PlotScript.DebrisState.HEAVY;
             plotsCopy.RemoveAt(plotIndex);
         }
 
-        // TODO : Better implementation (percentages?) for the rest of them
+        for (int i = 0; i < mediumPlots; i++)
+        {
+            int plotIndex = Random.Range(0, plotsCopy.Count);
+            plotsCopy[plotIndex].GetComponent<PlotScript>().Debris = PlotScript.DebrisState.MEDIUM;
+            plotsCopy.RemoveAt(plotIndex);
+        }
+
+        for (int i = 0; i < lightPlots; i++)
+        {
+            int plotIndex = Random.Range(0, plotsCopy.Count);
+            plotsCopy[plotIndex].GetComponent<PlotScript>().Debris = PlotScript.DebrisState.LIGHT;
+            plotsCopy.RemoveAt(plotIndex);
+        }
+
         foreach (GameObject plot in plotsCopy)
         {
-            plot.GetComponent<PlotScript>().debris = PlotScript.DebrisState.MEDIUM;
+            plot.GetComponent<PlotScript>().Debris = PlotScript.DebrisState.NONE;
         }
     }
 }

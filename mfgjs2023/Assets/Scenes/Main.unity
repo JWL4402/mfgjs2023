@@ -1519,7 +1519,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotTemplate: {fileID: 2566857949164566003, guid: 2cdb52af8359d374cad35e764bfcf47a, type: 3}
   plotCount: 18
-  arablePlots: 3
+  lightPlots: 8
+  mediumPlots: 4
+  heavyPlots: 3
 --- !u!1 &1429301929
 GameObject:
   m_ObjectHideFlags: 0

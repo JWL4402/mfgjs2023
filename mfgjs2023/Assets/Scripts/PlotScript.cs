@@ -1,31 +1,126 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlotScript : MonoBehaviour
 {
     public enum DebrisState { NONE, LIGHT, MEDIUM, HEAVY  };
 
-    public DebrisState debris;
-    public bool plowed;
+    [SerializeField] private List<Sprite> debrisSpriteList;
+    [SerializeField] private Sprite plowedPlotSprite;
+    private Dictionary<DebrisState, Sprite> debrisMap;
+
+    [SerializeField]
+    private DebrisState debris;
+    public DebrisState Debris
+    {
+        get { return debris; }
+        set { SetDebrisLevel(value); }
+    }
+
+    [SerializeField] private bool plowed;
+    [SerializeField] private float timeTillWater;
     public float growth;
-    public float timeTillWater;
     public Crop plantedCrop;
 
+    private void SetDebrisLevel(DebrisState level)
+    {
+        debris = level;
+        Sprite sprite;
+
+        if (debrisMap == null)
+        {
+            InitializeDebrisMap();
+        }
+
+        if (debrisMap.TryGetValue(debris, out sprite))
+        {
+            gameObject.GetComponent<Image>().sprite = sprite;
+        }
+        else
+        {
+            Debug.LogError("Problem with sprite");
+        }
+    }
+
+    private void InitializeDebrisMap()
+    {
+        debrisMap = new Dictionary<DebrisState, Sprite>();
+        DebrisState[] debrisStateList = (DebrisState[])Enum.GetValues(typeof(DebrisState));
+
+        for (int i = 0; i < debrisStateList.Length; i++)
+        {
+            debrisMap.Add(debrisStateList[i], debrisSpriteList[i]);
+        }
+    }
+
+    public void PlowPlot()
+    {
+        if (debris != DebrisState.NONE) { return; }
+
+        plowed = true;
+        gameObject.GetComponent<Image>().sprite = plowedPlotSprite;
+    }
+
+    public void PlantPlot(Crop crop)
+    {
+        if (debris != DebrisState.NONE) { return; }
+        if (!plowed) { return; }
+        
+        plantedCrop = crop;
+    }
+
+    private bool waterInProgress = false;
+    public void WaterPlot(float waterDuration)
+    {
+        if (debris != DebrisState.NONE) { return; }
+        if (plantedCrop == null) { return; }
+
+
+        timeTillWater = waterDuration;
+
+        StartCoroutine(StartGrowthCycle());
+    }
+
+    private const float waterHVal = 33f;
+    [SerializeField] [Range(0f, 0.7f)]
+    private float waterMaxSat;
+    [SerializeField] [Range(0, 1f)]
+    private float waterMaxOversat;
+
+    IEnumerator StartGrowthCycle()
+    {
+        if (waterInProgress)
+        {
+            yield break;
+        }
+        
+        waterInProgress = true;
+        Image plotImage = gameObject.GetComponent<Image>();
+
+        while (timeTillWater > 0)
+        {
+            timeTillWater -= Time.deltaTime;
+            growth += plantedCrop.growthRate * Time.deltaTime;
+
+            Color plotColor = Color.HSVToRGB(
+                waterHVal / 360f,
+                Mathf.Clamp(waterMaxSat * (timeTillWater / plantedCrop.waterInterval), 0f, waterMaxOversat),
+                1f);
+            plotImage.color = plotColor;
+
+            yield return null;
+        }
+
+        waterInProgress = false;
+        timeTillWater = 0;
+    }
 
     private void Start()
     {
-        AddPhysics2DRaycaster();
-    }
-
-    private void AddPhysics2DRaycaster()
-    {
-        Physics2DRaycaster physicsRaycaster = FindObjectOfType<Physics2DRaycaster>();
-        if (physicsRaycaster == null)
-        {
-            Camera.main.gameObject.AddComponent<Physics2DRaycaster>();
-        }
+        
     }
 
     private void Update()
