@@ -19,10 +19,10 @@ public class FieldScript : MonoBehaviour
     {
         plots = new List<GameObject>();
 
-        for (int i = 0; i < plotCount; i++)
+        for (int i = 1; i <= plotCount; i++)
         {
             GameObject plot = GameObject.Instantiate(plotTemplate, gameObject.transform);
-            plot.name = "Plot " + (i + 1);
+            plot.name = "Plot " + i;
             plots.Add(plot);
         }
 

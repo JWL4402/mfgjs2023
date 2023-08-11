@@ -18,9 +18,13 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private const int UILayer = 5;
 
+    private Transform cloneContainer;
+
     private void Start()
     {
         AddPhysicsRaycaster();
+
+        cloneContainer = GameObject.FindGameObjectWithTag("Background").transform;
     }
 
     private void Update()
@@ -51,19 +55,24 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         // Courtesy of : https://stackoverflow.com/a/74744617/12462601
         var eventData = new PointerEventData(EventSystem.current);
         eventData.position = Input.mousePosition;
+
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
-        if (results.Where(r => r.gameObject.layer == UILayer).Count() > 0)
-        {;
-            PlotScript plot = results[0].gameObject.GetComponent<PlotScript>();
+        var plots = results.Where(r =>
+            r.gameObject.layer == UILayer &&
+            r.gameObject.GetComponent<PlotScript>() != null);
+
+        if (plots.Count() > 0)
+        {
+            PlotScript plot = plots.First().gameObject.GetComponent<PlotScript>();
             tool.OnUse(plot);
         }
     }
 
     private void GenerateClone()
     {
-        clone = Object.Instantiate(draggedObject, gameObject.transform.parent);
+        clone = Object.Instantiate(draggedObject, cloneContainer);
     }
 
     public void OnPointerDown(PointerEventData eventData)

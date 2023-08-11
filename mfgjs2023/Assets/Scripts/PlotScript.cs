@@ -25,6 +25,9 @@ public class PlotScript : MonoBehaviour
     public float growth;
     public Crop plantedCrop;
 
+    [SerializeField] private Image cropImage;
+    private int cropIndex;
+
     private void SetDebrisLevel(DebrisState level)
     {
         debris = level;
@@ -56,6 +59,12 @@ public class PlotScript : MonoBehaviour
         }
     }
 
+    private void UpdateCropSprite(int spriteIndex)
+    {
+        cropIndex = spriteIndex;
+        cropImage.sprite = plantedCrop.sprites[cropIndex];
+    }
+
     public void PlowPlot()
     {
         if (debris != DebrisState.NONE) { return; }
@@ -70,6 +79,8 @@ public class PlotScript : MonoBehaviour
         if (!plowed) { return; }
         
         plantedCrop = crop;
+        cropImage.gameObject.SetActive(true);
+        UpdateCropSprite(0);
     }
 
     private bool waterInProgress = false;
@@ -90,7 +101,7 @@ public class PlotScript : MonoBehaviour
     [SerializeField] [Range(0, 1f)]
     private float waterMaxOversat;
 
-    IEnumerator StartGrowthCycle()
+    private IEnumerator StartGrowthCycle()
     {
         if (waterInProgress)
         {
@@ -109,6 +120,13 @@ public class PlotScript : MonoBehaviour
                 waterHVal / 360f,
                 Mathf.Clamp(waterMaxSat * (timeTillWater / plantedCrop.waterInterval), 0f, waterMaxOversat),
                 1f);
+
+            int growthIndex = Mathf.Clamp(Mathf.FloorToInt(growth * 3f), 0, 3);
+            if (growthIndex != cropIndex)
+            {
+                UpdateCropSprite(growthIndex);
+            }
+
             plotImage.color = plotColor;
 
             yield return null;
@@ -116,15 +134,5 @@ public class PlotScript : MonoBehaviour
 
         waterInProgress = false;
         timeTillWater = 0;
-    }
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-
     }
 }

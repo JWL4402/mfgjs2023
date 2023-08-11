@@ -6,9 +6,10 @@ using UnityEngine;
 public class WateringCan : UseableObject
 {
     public float timeMultiplier = 1f;
+    private const float lenience = 0.1f;
     
     public override void OnUse(PlotScript plot)
     {
-        plot.WaterPlot(plot.plantedCrop.waterInterval * timeMultiplier);
+        plot.WaterPlot(lenience + (plot.plantedCrop.waterInterval * timeMultiplier));
     }
 }

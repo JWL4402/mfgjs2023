@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42ccdee05ee67344b83d9dd92416d227, type: 3}
-  m_Name: Crop
+  m_Name: Corn
   m_EditorClassIdentifier: 
-  cropName: 
+  cropName: Corn
   sprites:
-  - {fileID: 21300000, guid: 130a6e0c57bc49947a0c397533e42676, type: 3}
-  seedSprite: {fileID: 0}
+  - {fileID: -58158995, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
+  - {fileID: -839515117, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
+  - {fileID: 1219676346, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
+  - {fileID: 1642541222, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
+  seedSprite: {fileID: -58158995, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
   value: 0
   price: 0
   growthRate: 0.05
