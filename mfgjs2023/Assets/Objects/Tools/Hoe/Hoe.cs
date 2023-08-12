@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Hoe", menuName = "Useable Objects/Hoe")]
-public class Hoe : UseableObject
+[CreateAssetMenu(fileName = "Hoe", menuName = "Tools/Hoe")]
+public class Hoe : Tool
 {
     public override void OnUse(PlotScript plot)
     {
-        plot.PlowPlot();
+        plot.SetPlowed(true);
     }
 }

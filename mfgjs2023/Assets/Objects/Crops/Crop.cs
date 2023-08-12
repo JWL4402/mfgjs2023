@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Crop", menuName = "Crops/Crop")]
-public class Crop : UseableObject
+public class Crop : Tool
 {
     public string cropName;
     public List<Sprite> sprites;
@@ -18,5 +18,10 @@ public class Crop : UseableObject
     public override void OnUse(PlotScript plot)
     {
         plot.PlantPlot(this);
+    }
+
+    public void OnSell(PlotScript plot)
+    {
+        plot.SellCrop();
     }
 }

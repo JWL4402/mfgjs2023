@@ -28,6 +28,8 @@ public class PlotScript : MonoBehaviour
     [SerializeField] private Image cropImage;
     private int cropIndex;
 
+    private ObjectScript objectScript;
+
     private void SetDebrisLevel(DebrisState level)
     {
         debris = level;
@@ -59,18 +61,12 @@ public class PlotScript : MonoBehaviour
         }
     }
 
-    private void UpdateCropSprite(int spriteIndex)
-    {
-        cropIndex = spriteIndex;
-        cropImage.sprite = plantedCrop.sprites[cropIndex];
-    }
-
-    public void PlowPlot()
+    public void SetPlowed(bool plow)
     {
         if (debris != DebrisState.NONE) { return; }
 
-        plowed = true;
-        gameObject.GetComponent<Image>().sprite = plowedPlotSprite;
+        plowed = plow;
+        gameObject.GetComponent<Image>().sprite = plow ? plowedPlotSprite : debrisSpriteList[0];
     }
 
     public void PlantPlot(Crop crop)
@@ -95,6 +91,49 @@ public class PlotScript : MonoBehaviour
         StartCoroutine(StartGrowthCycle());
     }
 
+    public void SellCrop()
+    {
+        if (growth < 1f)
+        {
+            Debug.LogError("selling ungrown plant?");
+            return;
+        }
+
+        LogicScript logic = FindObjectOfType<LogicScript>();
+        logic.money += plantedCrop.value;
+
+        ClearPlot();
+    }
+
+    public void ClearPlot()
+    {
+        SetPlowed(false);
+
+        growth = 0f;
+        plantedCrop = null;
+        cropImage.gameObject.SetActive(false);
+        SetMaturity(false);
+    }
+
+    private void UpdateCropSprite(int spriteIndex)
+    {
+        cropIndex = spriteIndex;
+        cropImage.sprite = plantedCrop.sprites[cropIndex];
+    }
+
+    private void SetMaturity(bool mature)
+    {
+        if (mature)
+        {
+            objectScript = cropImage.gameObject.AddComponent<ObjectScript>();
+            objectScript.draggedObject = cropImage.gameObject;
+        }
+        else
+        {
+            Destroy(objectScript);
+        }
+    }
+
     private const float waterHVal = 33f;
     [SerializeField] [Range(0f, 0.7f)]
     private float waterMaxSat;
@@ -113,6 +152,11 @@ public class PlotScript : MonoBehaviour
 
         while (timeTillWater > 0)
         {
+            if (plantedCrop == null)
+            {
+                yield break;
+            }
+            
             timeTillWater -= Time.deltaTime;
             growth += plantedCrop.growthRate * Time.deltaTime;
 
@@ -125,6 +169,10 @@ public class PlotScript : MonoBehaviour
             if (growthIndex != cropIndex)
             {
                 UpdateCropSprite(growthIndex);
+                if (growthIndex == 3)
+                {
+                    SetMaturity(true);
+                }
             }
 
             plotImage.color = plotColor;
