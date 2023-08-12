@@ -7,6 +7,6 @@ public class Hoe : Tool
 {
     public override void OnUse(PlotScript plot)
     {
-        plot.PlowPlot();
+        plot.SetPlowed(true);
     }
 }

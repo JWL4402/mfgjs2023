@@ -4,17 +4,18 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// A script that allows the player to click on a GameObject to move it around with their mouse, then
 /// click again to let go of it. All Game Objects involved must have a BoxCollider (but a RigidBody is not required)
 /// </summary>
-public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class ObjectScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public GameObject draggedObject;
     public GameObject clone;
 
-    public UseableObject tool;
+    public Tool tool;
 
     private const int UILayer = 5;
 
@@ -50,7 +51,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-    private void CheckForPlots()
+    private List<RaycastResult> RaycastAtMouse()
     {
         // Courtesy of : https://stackoverflow.com/a/74744617/12462601
         var eventData = new PointerEventData(EventSystem.current);
@@ -58,6 +59,29 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
+
+        return results;
+    }
+
+    private bool TrySelling()
+    {
+        if (!draggedObject.transform.parent.gameObject.TryGetComponent<PlotScript>(out var plot)) { return false; }
+
+        var results = RaycastAtMouse();
+        var sellBox = results.Where(r =>
+            r.gameObject.layer == UILayer &&
+            r.gameObject == GameObject.FindGameObjectWithTag("Sell"));
+
+        if (sellBox.Count() == 0) { return false; }
+
+        plot.SellCrop();
+
+        return true;
+    }
+
+    private void CheckForPlots()
+    {
+        var results = RaycastAtMouse();
 
         var plots = results.Where(r =>
             r.gameObject.layer == UILayer &&
@@ -72,7 +96,13 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void GenerateClone()
     {
-        clone = Object.Instantiate(draggedObject, cloneContainer);
+        clone = Instantiate(draggedObject, cloneContainer);
+        
+        Image image = clone.GetComponent<Image>();
+        if (image != null)
+        {
+            image.rectTransform.sizeDelta = draggedObject.GetComponent<RectTransform>().sizeDelta;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -83,6 +113,9 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         Destroy(clone);
-        CheckForPlots();
+        if (!TrySelling())
+        {
+            CheckForPlots();
+        }
     }
 }
