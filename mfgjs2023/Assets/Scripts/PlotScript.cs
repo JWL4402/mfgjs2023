@@ -61,6 +61,11 @@ public class PlotScript : MonoBehaviour
         }
     }
 
+    public void RemoveDebris()
+    {
+
+    }
+
     public void SetPlowed(bool plow)
     {
         if (debris != DebrisState.NONE) { return; }
