@@ -1761,6 +1761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 100
+  cashDisplay: {fileID: 1156660375}
 --- !u!4 &1384790495
 Transform:
   m_ObjectHideFlags: 0

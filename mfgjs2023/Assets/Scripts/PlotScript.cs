@@ -67,17 +67,17 @@ public class PlotScript : MonoBehaviour
             debrisMap.Add(debrisStateList[i], debrisSpriteList[i]);
         }
     }
-    [ContextMenu("Remove")]
+
     public void RemoveDebris(int cost)
     {
         if (debris == DebrisState.NONE) { return; }
-        if (logic.money < cost)
+        if (logic.Money < cost)
         {
             Debug.Log("Not Enough Money");
             return;
         }
 
-        logic.money -= cost;
+        logic.Money -= cost;
         Debris--;
     }
 
@@ -119,7 +119,7 @@ public class PlotScript : MonoBehaviour
             return;
         }
 
-        logic.money += plantedCrop.value;
+        logic.Money += plantedCrop.value;
 
         ClearPlot();
     }
