@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1m00s
+  m_text: 60s
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1761,7 +1761,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 100
+  season: 0
+  currentYear: 0
+  gameLength: 3
+  seasonLength: 60
   cashDisplay: {fileID: 1156660375}
+  yearDisplay: {fileID: 568617620}
+  seasonDisplay: {fileID: 1692135362}
+  timeDisplay: {fileID: 1033478064}
 --- !u!4 &1384790495
 Transform:
   m_ObjectHideFlags: 0
