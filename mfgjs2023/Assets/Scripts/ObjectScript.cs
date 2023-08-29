@@ -87,7 +87,7 @@ public class ObjectScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             r.gameObject.layer == UILayer &&
             r.gameObject.GetComponent<PlotScript>() != null);
 
-        if (plots.Count() > 0)
+        if (plots.Count() > 0 && tool != null)
         {
             PlotScript plot = plots.First().gameObject.GetComponent<PlotScript>();
             tool.OnUse(plot);
