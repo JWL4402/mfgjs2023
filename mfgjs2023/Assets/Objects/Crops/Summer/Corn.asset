@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 1219676346, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
   - {fileID: 1642541222, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
   seedSprite: {fileID: -58158995, guid: eeaf0f38affc8bc429265bec78754283, type: 3}
-  value: 0
-  price: 0
+  value: 15
+  price: 10
   growthRate: 0.05
   waterInterval: 10

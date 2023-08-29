@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 255293449}
   - component: {fileID: 255293448}
   m_Layer: 5
-  m_Name: Plot Cleaner
+  m_Name: Speed Grow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 352870673}
   - component: {fileID: 352870672}
   m_Layer: 5
-  m_Name: Speed Grow
+  m_Name: Fertilizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,8 +403,9 @@ GameObject:
   - component: {fileID: 530814393}
   - component: {fileID: 530814395}
   - component: {fileID: 530814394}
+  - component: {fileID: 530814396}
   m_Layer: 5
-  m_Name: Fertilizer
+  m_Name: Shovel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,8 +428,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 0}
-  m_SizeDelta: {x: 80, y: 60}
+  m_AnchoredPosition: {x: 5, y: 0}
+  m_SizeDelta: {x: 90, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &530814394
 MonoBehaviour:
@@ -443,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34376115, g: 0.49802577, b: 0.7075472, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -468,6 +469,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530814392}
   m_CullTransparentMesh: 1
+--- !u!114 &530814396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530814392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ffe0badbaea734ea84616e2c7147d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggedObject: {fileID: 530814392}
+  clone: {fileID: 0}
+  tool: {fileID: 11400000, guid: f48651dfdf16bc04897d0b3c20b2bc2c, type: 2}
 --- !u!1 &534770407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,7 +1760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be64b6d58de95d44820668c66b0a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 0
+  money: 100
+  cashDisplay: {fileID: 1156660375}
 --- !u!4 &1384790495
 Transform:
   m_ObjectHideFlags: 0
@@ -1753,7 +1770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384790493}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.121044, y: 0.9869764, z: -0.1035615}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2868,6 +2885,10 @@ PrefabInstance:
     - target: {fileID: 3159747387293928920, guid: 55afae2866e2ed34881f0174e9061e10, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3456759665937835207, guid: 55afae2866e2ed34881f0174e9061e10, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6258866055604590079, guid: 55afae2866e2ed34881f0174e9061e10, type: 3}
       propertyPath: m_AnchoredPosition.x

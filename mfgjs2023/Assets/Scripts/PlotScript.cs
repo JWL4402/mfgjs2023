@@ -30,6 +30,13 @@ public class PlotScript : MonoBehaviour
 
     private ObjectScript objectScript;
 
+    private LogicScript logic;
+
+    private void Start()
+    {
+        logic = FindObjectOfType<LogicScript>();
+    }
+
     private void SetDebrisLevel(DebrisState level)
     {
         debris = level;
@@ -59,6 +66,19 @@ public class PlotScript : MonoBehaviour
         {
             debrisMap.Add(debrisStateList[i], debrisSpriteList[i]);
         }
+    }
+
+    public void RemoveDebris(int cost)
+    {
+        if (debris == DebrisState.NONE) { return; }
+        if (logic.Money < cost)
+        {
+            Debug.Log("Not Enough Money");
+            return;
+        }
+
+        logic.Money -= cost;
+        Debris--;
     }
 
     public void SetPlowed(bool plow)
@@ -99,8 +119,7 @@ public class PlotScript : MonoBehaviour
             return;
         }
 
-        LogicScript logic = FindObjectOfType<LogicScript>();
-        logic.money += plantedCrop.value;
+        logic.Money += plantedCrop.value;
 
         ClearPlot();
     }
