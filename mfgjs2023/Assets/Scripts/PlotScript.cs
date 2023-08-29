@@ -128,6 +128,7 @@ public class PlotScript : MonoBehaviour
     {
         SetPlowed(false);
 
+        waterInProgress = false;
         growth = 0f;
         plantedCrop = null;
         cropImage.gameObject.SetActive(false);
